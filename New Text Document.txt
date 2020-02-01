@@ -1,0 +1,105 @@
+}S%~bfK/uB7FJdS
+
+    @yield('navmenu')
+    
+    @if($cmd == 'item')
+    <div class="container mt-2 bg-light rounded">
+            <div class="row">
+                <div class="col-lg-8 overflow-hidden">
+        
+                @if(count($xdata))
+                    <h1 class="mt-4">{{$xdata->title}}</h1>
+                    <hr>
+                    <p><i class="small">โดย {{get_creator($xdata->uid)}} เมื่อ {{DateThai($xdata->created_at)}} / แก้ไขล่าสุด {{DateThai($xdata->updated_at)}}</i></p>
+                    <hr>
+                    <img class="img-fluid" src="/storage/cover_images/{{$xdata->cover_image}}" width="100%" alt="{{$xdata->title}}">
+                    <hr>
+                    <!-- Post Content -->
+                    <b>
+                    {{$xdata->description}}
+                    </b>
+                    <hr>
+                    {!! $xdata->content !!}
+                    @if($xdata->misc != null)
+                        <div class="youtube">
+                                {!! youtube($xdata->misc) !!}
+                        </div>
+                    @endif
+                    <hr>
+                    <blockquote class="blockquote">
+         
+                        <footer class="blockquote-footer">tags :
+                            <cite title="Source Title">{{$xdata->tag}}</cite>
+                        </footer>
+                    </blockquote>
+        
+                    <hr>
+                @endif
+                <div class="mt-lg-12">
+                    <a href="#"><img src="{{url('../images/banner.gif')}}" width="100%" height="auto"></a>
+                </div>
+                <div class="mt-lg-12 mt-2">
+                    <a href="#"><img src="{{url('../images/banner2.gif')}}" width="100%" height="auto"></a>
+                </div>
+                <hr>
+        
+                
+            </div>
+        
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+                {{-- @yield('side-widgets') --}}
+            </div>
+        </div>
+    </div>
+    @endif
+        
+        
+        @if($cmd == 'group')
+        <div class="container mt-2 bg-light rounded">
+            <div class="row">
+                <div class="col-lg-8">
+        
+                @if(count($items))
+                    <h1 class="mt-4">{{get_groups($subcmd)}}</h1>
+                    <hr style="margin-bottom:10px;">
+                    <p class="mb-0" style="color:#999"><a href="{{url('../')}}">หน้าแรก</a> > หมวด{{get_groups($subcmd)}}</p>
+                    <hr style="margin-top:10px;">
+                        
+                    <div class="col-lg-12 p-0 mt-1">
+                    @foreach($items as $item)
+                        <div class="col-lg-6 p-2 float-lg-left">
+                            <div class="p-0">   
+                                <div class="img-hover" style="width: 100%;">
+                                    <div class="pic">
+                                        <a href="{{url('/item/'.$item->id.'/')}}"><img src="/storage/thumb/{{$item->cover_image}}" width="100%" height="170"></a>
+                                    </div>
+                                </div>
+        
+                                <div style="margin-top:10px;">
+                                    <div style="height:50px;">
+                                        <p><a href="{{url('/item/'.$item->id.'/')}}">{{$item->title}}</a></p>
+                                    </div>
+                                    <hr style="margin-bottom:3px;">
+                                    <i class="small" style="color:#999">{{get_creator($item->uid)}} : {{DateThai($item->created_at)}}</i>
+                                    <hr style="margin-top:5px;">
+                                </div> 
+        
+        
+                            </div>
+                        </div>
+                    @endforeach
+                    </div>
+                @endif   
+                
+                <div class="mt-lg-12" style="margin-bottom:20px;">
+                    <a href="#"><img src="{{url('../images/banner.gif')}}" width="100%" height="110px"></a>
+                </div>
+        
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-lg-4">
+                    @yield('side-widgets')
+                </div>
+            </div>
+        </div>
